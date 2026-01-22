@@ -1,0 +1,15 @@
+{
+  "name": "mindgrade-backend",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Backend API for MindGrade",
+  "scripts": {
+    "dev": "echo 'Backend not yet implemented. Add your backend server script here.'",
+    "build": "echo 'Backend build script not yet implemented.'",
+    "start": "echo 'Backend start script not yet implemented.'"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
+
