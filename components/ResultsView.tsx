@@ -29,7 +29,7 @@ const ResultsView: React.FC<ResultsViewProps> = ({ result, questions, userRespon
     <div className="max-w-4xl mx-auto space-y-8 animate-fade-in-up pb-12">
       {/* Summary Card */}
       <div className={`p-8 rounded-2xl border-2 ${gradeBg} flex flex-col md:flex-row items-center justify-between shadow-sm`}>
-        <div className="mb-6 md:mb-0 text-center md:text-left">
+        <div className="mb-6 md:mb-0 text-center md:text-left overflow-hidden break-words">
           <h2 className={`text-3xl font-bold ${gradeColor} mb-2`}>Quiz Complete!</h2>
           <p className="text-slate-700 text-lg"><MathRenderer text={result.summary} /></p>
         </div>
@@ -57,7 +57,7 @@ const ResultsView: React.FC<ResultsViewProps> = ({ result, questions, userRespon
             <div key={idx} className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
               {/* Question Header */}
               <div className="bg-slate-50 px-6 py-4 border-b border-slate-100 flex justify-between items-start">
-                <div className="flex-1 pr-4">
+                <div className="flex-1 pr-4 overflow-hidden break-words">
                     <span className="text-xs font-bold text-slate-500 uppercase tracking-wide">Question {idx + 1}</span>
                     <div className="text-lg font-medium text-slate-900 mt-1">
                         <MathRenderer text={question.text} />
@@ -79,37 +79,26 @@ const ResultsView: React.FC<ResultsViewProps> = ({ result, questions, userRespon
                 </div>
               </div>
 
-              <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="p-6 space-y-8">
                 {/* User Side */}
                 <div className="space-y-4">
-                  <div>
-                    <span className="text-xs font-semibold text-slate-400 uppercase">Your Answer</span>
-                    <div className={`mt-1 p-3 rounded-lg border flex items-center ${
-                      evaluation.isAnswerCorrect 
-                        ? 'bg-green-50 border-green-200 text-green-900' 
-                        : 'bg-red-50 border-red-200 text-red-900'
-                    }`}>
-                       {evaluation.isAnswerCorrect ? <Icons.CheckCircle className="w-5 h-5 mr-2 flex-none" /> : <Icons.XCircle className="w-5 h-5 mr-2 flex-none" />}
-                       <span className="font-medium">
-                         {option ? <MathRenderer text={option.text} inline /> : "No selection"}
-                       </span>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <span className="text-xs font-semibold text-slate-400 uppercase">Your Answer</span>
+                      <div className={`mt-1 p-3 rounded-lg border flex items-center ${
+                        evaluation.isAnswerCorrect 
+                          ? 'bg-green-50 border-green-200 text-green-900' 
+                          : 'bg-red-50 border-red-200 text-red-900'
+                      }`}>
+                         {evaluation.isAnswerCorrect ? <Icons.CheckCircle className="w-5 h-5 mr-2 flex-none" /> : <Icons.XCircle className="w-5 h-5 mr-2 flex-none" />}
+                         <span className="font-medium">
+                           {option ? <MathRenderer text={option.text} inline /> : "No selection"}
+                         </span>
+                      </div>
                     </div>
-                  </div>
-                  
-                  <div>
-                    <span className="text-xs font-semibold text-slate-400 uppercase">Your Reasoning</span>
-                    <div className="mt-1 p-3 rounded-lg border border-slate-200 bg-slate-50 text-slate-700 text-sm min-h-[60px]">
-                      {userResp?.reasoning ? <MathRenderer text={userResp.reasoning} /> : <span className="text-slate-400 italic">No reasoning provided.</span>}
-                    </div>
-                  </div>
-                </div>
 
-                {/* AI Feedback Side */}
-                <div className="space-y-4 relative">
-                    <div className="absolute left-0 top-0 bottom-0 w-px bg-slate-100 -ml-4 hidden md:block"></div>
-                  
-                  {!evaluation.isAnswerCorrect && (
-                     <div>
+                    {!evaluation.isAnswerCorrect && (
+                      <div>
                         <span className="text-xs font-semibold text-slate-400 uppercase">Correct Answer</span>
                         <div className="mt-1 p-3 rounded-lg border border-indigo-100 bg-indigo-50 text-indigo-900 flex items-center">
                             <Icons.CheckCircle className="w-5 h-5 mr-2 text-indigo-600 flex-none" />
@@ -117,18 +106,35 @@ const ResultsView: React.FC<ResultsViewProps> = ({ result, questions, userRespon
                                 <MathRenderer text={correctOption?.text || ""} inline />
                             </span>
                         </div>
-                    </div>
-                  )}
-
+                      </div>
+                    )}
+                  </div>
+                  
                   <div>
-                     <span className="text-xs font-semibold text-slate-400 uppercase">Feedback on Reasoning</span>
-                     <div className="mt-1 text-sm text-slate-700 leading-relaxed">
-                        <div className="mb-3 bg-white p-3 rounded border border-slate-100 shadow-sm">
-                            <span className="font-semibold text-indigo-600 block mb-1">AI Evaluation</span> 
+                    <span className="text-xs font-semibold text-slate-400 uppercase">Your Reasoning</span>
+                    <div className="mt-1 p-4 rounded-lg border border-slate-200 bg-slate-50 text-slate-700 text-sm min-h-[60px]">
+                      {userResp?.reasoning ? <MathRenderer text={userResp.reasoning} /> : <span className="text-slate-400 italic">No reasoning provided.</span>}
+                    </div>
+                  </div>
+                </div>
+
+                {/* AI Feedback Side - Now Vertical */}
+                <div className="space-y-6 pt-6 border-t border-slate-100">
+                  <div>
+                     <span className="text-xs font-semibold text-slate-400 uppercase flex items-center">
+                        <Icons.BrainCircuit className="w-4 h-4 mr-1.5 text-indigo-500" />
+                        AI Evaluation & Feedback
+                     </span>
+                     <div className="mt-4 text-sm text-slate-700 leading-relaxed space-y-6">
+                        <div className="bg-indigo-50/30 p-5 rounded-xl border border-indigo-100 shadow-sm">
+                            <span className="font-semibold text-indigo-700 block mb-3">Analysis</span> 
                             <MathRenderer text={evaluation.reasonFeedback} />
                         </div>
-                        <div className="p-3 bg-yellow-50 border border-yellow-100 rounded-lg text-yellow-900 text-xs">
-                            <span className="font-bold block mb-1 text-yellow-800">Optimal Reasoning Path</span>
+                        <div className="p-5 bg-amber-50/50 border border-amber-100 rounded-xl text-slate-800">
+                            <span className="font-bold block mb-3 text-amber-800 flex items-center">
+                                <Icons.CheckCircle className="w-4 h-4 mr-1.5" />
+                                Optimal Reasoning Path
+                            </span>
                             <MathRenderer text={evaluation.correctReasoning} />
                         </div>
                      </div>

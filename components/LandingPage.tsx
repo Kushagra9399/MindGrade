@@ -12,9 +12,15 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
       {/* Hero Section */}
       <div className="bg-white border-b border-slate-200">
         <div className="max-w-5xl mx-auto px-6 py-20 md:py-32 flex flex-col items-center text-center">
-          <div className="w-24 h-24 mb-8 animate-fade-in-down">
+          <div className="w-24 h-24 mb-4 animate-fade-in-down">
             <MindGradeLogo />
           </div>
+          <div className="mb-8 animate-fade-in-down" style={{ animationDelay: '0.05s' }}>
+             <span className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 tracking-tighter">
+                MindGrade
+             </span>
+          </div>
+
           <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight mb-6 leading-tight animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
             Master Any Subject with <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">AI-Powered Precision</span>

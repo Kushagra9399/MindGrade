@@ -83,90 +83,6 @@ const QuizSetup: React.FC<QuizSetupProps> = ({ onStartAI, onStartManual }) => {
     });
   };
 
-  // Shared Settings Component
-  const SettingsPanel = () => (
-    <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 mb-6">
-        <div className="flex items-center gap-2 mb-4 pb-2 border-b border-slate-200">
-             <Icons.Settings className="w-4 h-4 text-indigo-600" />
-             <span className="text-sm font-bold text-slate-800 uppercase tracking-wide">Exam Configuration</span>
-        </div>
-        
-        {/* Row 1: Time & Count */}
-        <div className="grid grid-cols-2 gap-4 mb-4">
-             <div>
-                <label className="block text-xs font-semibold text-slate-500 mb-1">Duration (mins)</label>
-                <div className="relative">
-                    <input 
-                        type="number" 
-                        min="1" 
-                        max="180"
-                        value={timeLimit}
-                        onChange={(e) => setTimeLimit(Math.max(1, parseInt(e.target.value) || 0))}
-                        className="w-full pl-3 pr-8 py-2 border border-slate-300 rounded-lg text-sm font-bold text-slate-700 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none"
-                    />
-                    <span className="absolute right-3 top-2 text-xs text-slate-400 font-medium">min</span>
-                </div>
-            </div>
-             <div>
-                <label className="block text-xs font-semibold text-slate-500 mb-1">Question Count</label>
-                 <div className="relative">
-                    <input 
-                        type="number" 
-                        min="1" 
-                        max="50"
-                        value={questionCount}
-                        onChange={(e) => setQuestionCount(Math.max(1, parseInt(e.target.value) || 0))}
-                        className="w-full pl-3 pr-3 py-2 border border-slate-300 rounded-lg text-sm font-bold text-slate-700 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none"
-                    />
-                </div>
-            </div>
-        </div>
-
-        {/* Row 2: Marking Scheme */}
-        <div className="bg-white p-3 rounded-lg border border-slate-200">
-            <label className="block text-xs font-bold text-slate-400 uppercase mb-2">Marking Scheme</label>
-            <div className="flex gap-2">
-                <div className="flex-1">
-                    <label className="block text-xs text-slate-500 mb-1">Correct Answer</label>
-                    <input 
-                        type="number" 
-                        min="0" 
-                        max="100"
-                        value={answerPoints}
-                        onChange={(e) => setAnswerPoints(Math.max(0, parseInt(e.target.value) || 0))}
-                        className="w-full p-2 border border-slate-200 rounded text-center font-bold text-green-600 focus:border-indigo-500 outline-none"
-                    />
-                </div>
-                <div className="flex-1">
-                    <label className="block text-xs text-slate-500 mb-1">Reasoning</label>
-                    <input 
-                        type="number" 
-                        min="0" 
-                        max="100"
-                        value={reasonPoints}
-                        onChange={(e) => setReasonPoints(Math.max(0, parseInt(e.target.value) || 0))}
-                        className="w-full p-2 border border-slate-200 rounded text-center font-bold text-indigo-600 focus:border-indigo-500 outline-none"
-                    />
-                </div>
-                <div className="flex-1">
-                    <label className="block text-xs text-red-500 mb-1">Negative Mark</label>
-                    <div className="relative">
-                        <span className="absolute left-2 top-2 font-bold text-red-600">-</span>
-                        <input 
-                            type="number" 
-                            min="0" 
-                            max="100"
-                            value={negativeMarking}
-                            onChange={(e) => setNegativeMarking(Math.max(0, parseInt(e.target.value) || 0))}
-                            className="w-full p-2 pl-4 border border-red-100 bg-red-50 rounded text-center font-bold text-red-600 focus:border-red-300 outline-none"
-                        />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-  );
-
   // Render Logic
   const renderContent = () => {
       if (mode === 'teacher') {
@@ -177,7 +93,86 @@ const QuizSetup: React.FC<QuizSetupProps> = ({ onStartAI, onStartManual }) => {
                 onCancel={() => setMode('ai')}
                 />
                 <div className="mt-6">
-                    <SettingsPanel />
+                    <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 mb-6">
+                        <div className="flex items-center gap-2 mb-4 pb-2 border-b border-slate-200">
+                            <Icons.Settings className="w-4 h-4 text-indigo-600" />
+                            <span className="text-sm font-bold text-slate-800 uppercase tracking-wide">Exam Configuration</span>
+                        </div>
+                        
+                        {/* Row 1: Time & Count */}
+                        <div className="grid grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <label className="block text-xs font-semibold text-slate-500 mb-1">Duration (mins)</label>
+                                <div className="relative">
+                                    <input 
+                                        type="number" 
+                                        min="1" 
+                                        max="180"
+                                        value={timeLimit}
+                                        onChange={(e) => setTimeLimit(Math.max(1, parseInt(e.target.value) || 0))}
+                                        className="w-full pl-3 pr-8 py-2 border border-slate-300 rounded-lg text-sm font-bold text-slate-700 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none"
+                                    />
+                                    <span className="absolute right-3 top-2 text-xs text-slate-400 font-medium">min</span>
+                                </div>
+                            </div>
+                            <div>
+                                <label className="block text-xs font-semibold text-slate-500 mb-1">Question Count</label>
+                                <div className="relative">
+                                    <input 
+                                        type="number" 
+                                        min="1" 
+                                        max="50"
+                                        value={questionCount}
+                                        onChange={(e) => setQuestionCount(Math.max(1, parseInt(e.target.value) || 0))}
+                                        className="w-full pl-3 pr-3 py-2 border border-slate-300 rounded-lg text-sm font-bold text-slate-700 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Row 2: Marking Scheme */}
+                        <div className="bg-white p-3 rounded-lg border border-slate-200">
+                            <label className="block text-xs font-bold text-slate-400 uppercase mb-2">Marking Scheme</label>
+                            <div className="flex gap-2">
+                                <div className="flex-1">
+                                    <label className="block text-xs text-slate-500 mb-1">Correct Answer</label>
+                                    <input 
+                                        type="number" 
+                                        min="0" 
+                                        max="100"
+                                        value={answerPoints}
+                                        onChange={(e) => setAnswerPoints(Math.max(0, parseInt(e.target.value) || 0))}
+                                        className="w-full p-2 border border-slate-200 rounded text-center font-bold text-green-600 focus:border-indigo-500 outline-none"
+                                    />
+                                </div>
+                                <div className="flex-1">
+                                    <label className="block text-xs text-slate-500 mb-1">Reasoning</label>
+                                    <input 
+                                        type="number" 
+                                        min="0" 
+                                        max="100"
+                                        value={reasonPoints}
+                                        onChange={(e) => setReasonPoints(Math.max(0, parseInt(e.target.value) || 0))}
+                                        className="w-full p-2 border border-slate-200 rounded text-center font-bold text-indigo-600 focus:border-indigo-500 outline-none"
+                                    />
+                                </div>
+                                <div className="flex-1">
+                                    <label className="block text-xs text-red-500 mb-1">Negative Mark</label>
+                                    <div className="relative">
+                                        <span className="absolute left-2 top-2 font-bold text-red-600">-</span>
+                                        <input 
+                                            type="number" 
+                                            min="0" 
+                                            max="100"
+                                            value={negativeMarking}
+                                            onChange={(e) => setNegativeMarking(Math.max(0, parseInt(e.target.value) || 0))}
+                                            className="w-full p-2 pl-4 border border-red-100 bg-red-50 rounded text-center font-bold text-red-600 focus:border-red-300 outline-none"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div className="text-center">
                         <button 
                             onClick={() => setMode('ai')}
@@ -241,7 +236,86 @@ const QuizSetup: React.FC<QuizSetupProps> = ({ onStartAI, onStartManual }) => {
       // Default AI Mode
       return (
         <div className="space-y-6 animate-fade-in-up">
-            <SettingsPanel />
+            <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 mb-6">
+                <div className="flex items-center gap-2 mb-4 pb-2 border-b border-slate-200">
+                    <Icons.Settings className="w-4 h-4 text-indigo-600" />
+                    <span className="text-sm font-bold text-slate-800 uppercase tracking-wide">Exam Configuration</span>
+                </div>
+                
+                {/* Row 1: Time & Count */}
+                <div className="grid grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label className="block text-xs font-semibold text-slate-500 mb-1">Duration (mins)</label>
+                        <div className="relative">
+                            <input 
+                                type="number" 
+                                min="1" 
+                                max="180"
+                                value={timeLimit}
+                                onChange={(e) => setTimeLimit(Math.max(1, parseInt(e.target.value) || 0))}
+                                className="w-full pl-3 pr-8 py-2 border border-slate-300 rounded-lg text-sm font-bold text-slate-700 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none"
+                            />
+                            <span className="absolute right-3 top-2 text-xs text-slate-400 font-medium">min</span>
+                        </div>
+                    </div>
+                    <div>
+                        <label className="block text-xs font-semibold text-slate-500 mb-1">Question Count</label>
+                        <div className="relative">
+                            <input 
+                                type="number" 
+                                min="1" 
+                                max="50"
+                                value={questionCount}
+                                onChange={(e) => setQuestionCount(Math.max(1, parseInt(e.target.value) || 0))}
+                                className="w-full pl-3 pr-3 py-2 border border-slate-300 rounded-lg text-sm font-bold text-slate-700 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                {/* Row 2: Marking Scheme */}
+                <div className="bg-white p-3 rounded-lg border border-slate-200">
+                    <label className="block text-xs font-bold text-slate-400 uppercase mb-2">Marking Scheme</label>
+                    <div className="flex gap-2">
+                        <div className="flex-1">
+                            <label className="block text-xs text-slate-500 mb-1">Correct Answer</label>
+                            <input 
+                                type="number" 
+                                min="0" 
+                                max="100"
+                                value={answerPoints}
+                                onChange={(e) => setAnswerPoints(Math.max(0, parseInt(e.target.value) || 0))}
+                                className="w-full p-2 border border-slate-200 rounded text-center font-bold text-green-600 focus:border-indigo-500 outline-none"
+                            />
+                        </div>
+                        <div className="flex-1">
+                            <label className="block text-xs text-slate-500 mb-1">Reasoning</label>
+                            <input 
+                                type="number" 
+                                min="0" 
+                                max="100"
+                                value={reasonPoints}
+                                onChange={(e) => setReasonPoints(Math.max(0, parseInt(e.target.value) || 0))}
+                                className="w-full p-2 border border-slate-200 rounded text-center font-bold text-indigo-600 focus:border-indigo-500 outline-none"
+                            />
+                        </div>
+                        <div className="flex-1">
+                            <label className="block text-xs text-red-500 mb-1">Negative Mark</label>
+                            <div className="relative">
+                                <span className="absolute left-2 top-2 font-bold text-red-600">-</span>
+                                <input 
+                                    type="number" 
+                                    min="0" 
+                                    max="100"
+                                    value={negativeMarking}
+                                    onChange={(e) => setNegativeMarking(Math.max(0, parseInt(e.target.value) || 0))}
+                                    className="w-full p-2 pl-4 border border-red-100 bg-red-50 rounded text-center font-bold text-red-600 focus:border-red-300 outline-none"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div>
                 <label className="block text-sm font-bold text-slate-800 mb-3">
                    Select Topics (Multi-select enabled)

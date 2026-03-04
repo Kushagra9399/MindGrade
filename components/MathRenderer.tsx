@@ -27,20 +27,17 @@ const MathRenderer: React.FC<MathRendererProps> = ({ text, className = "", inlin
       processed += " $"; // Close the dangling tag
     }
 
-    // 2. Replace actual newlines with HTML breaks
-    processed = processed.replace(/\n/g, '<br />');
+    // 2. Normalize newlines: Allow up to 4 newlines (3 blank lines)
+    processed = processed.replace(/\n{5,}/g, '\n\n\n\n');
     
-    // 3. Handle double/triple spaces as line breaks (common AI artifact for "separation")
-    processed = processed.replace(/\s{3,}/g, '<br /><br />');
-    processed = processed.replace(/\s{2,}/g, '<br />');
-
+    // 3. Handle multiple spaces: Rely on CSS whitespace-pre-wrap
+    
     // 4. Spacing around Delimiters: Enforce space between [letter] and $
     processed = processed.replace(/([a-zA-Z0-9])(\$)/g, '$1 $2');
     processed = processed.replace(/(\$)([a-zA-Z0-9])/g, '$1 $2');
 
-    // 5. Replace bullet points "- " at start of lines (after breaks) with a visual bullet
-    // This helps simple markdown-like lists render better
-    processed = processed.replace(/(<br \/>|^)\s*-\s/g, '$1&bull; ');
+    // 5. Replace bullet points "- " at start of lines with a visual bullet
+    processed = processed.replace(/(\n|^)\s*-\s/g, '$1&bull; ');
 
     return processed;
   };
@@ -77,8 +74,8 @@ const MathRenderer: React.FC<MathRendererProps> = ({ text, className = "", inlin
   return (
     <Tag 
       ref={ref} 
-      className={`math-content ${className} text-inherit leading-loose tracking-wide`} 
-      style={{ wordBreak: 'break-word', overflowWrap: 'anywhere' }}
+      className={`math-content ${className} text-inherit leading-loose tracking-wide whitespace-pre-wrap`} 
+      style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}
     />
   );
 };

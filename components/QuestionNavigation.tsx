@@ -4,8 +4,8 @@ import { Icons } from '../constants';
 interface QuestionNavigationProps {
   totalQuestions: number;
   currentQuestionIndex: number;
-  visitedIndices: Set<number>;
-  markedIndices: Set<number>;
+  visitedIndices: number[];
+  markedIndices: number[];
   userResponses: { [key: number]: boolean }; 
   onNavigate: (index: number) => void;
   onSubmit: () => void;
@@ -21,8 +21,8 @@ const QuestionNavigation: React.FC<QuestionNavigationProps> = ({
   onSubmit
 }) => {
   const answeredCount = Object.values(userResponses).filter(Boolean).length;
-  const markedCount = markedIndices.size;
-  const notVisitedCount = totalQuestions - visitedIndices.size;
+  const markedCount = markedIndices.length;
+  const notVisitedCount = totalQuestions - visitedIndices.length;
 
   return (
     <div className="bg-white h-full flex flex-col border-l border-slate-200 shadow-xl z-20">
@@ -59,8 +59,8 @@ const QuestionNavigation: React.FC<QuestionNavigationProps> = ({
         <div className="grid grid-cols-4 gap-3 content-start">
           {Array.from({ length: totalQuestions }).map((_, idx) => {
             const isAnswered = userResponses[idx];
-            const isVisited = visitedIndices.has(idx);
-            const isMarked = markedIndices.has(idx);
+            const isVisited = visitedIndices.includes(idx);
+            const isMarked = markedIndices.includes(idx);
             const isCurrent = currentQuestionIndex === idx;
 
             // CBT Style Coloring logic
