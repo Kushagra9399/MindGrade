@@ -2,7 +2,7 @@ import { createRootRoute, Outlet, useNavigate, useLocation } from '@tanstack/rea
 import { useQuizStore } from '../store/quizStore';
 import MindGradeLogo from '../components/MindGradeLogo';
 import { useEffect } from 'react';
-import { evaluateQuiz } from '../services/geminiService';
+import { evaluateQuiz } from '../services/apiService';
 
 export const Route = createRootRoute({
   component: RootComponent,

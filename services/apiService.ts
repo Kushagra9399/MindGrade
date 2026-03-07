@@ -3,12 +3,6 @@ import { Question, UserResponse, QuizResult, MarkingScheme } from "../types";
 // Use environment variable for backend URL
 const BASE_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
 
-/**
- * generateQuiz
- * Same function name
- * Same return type
- * Now calls backend instead of Gemini directly
- */
 export const generateQuiz = async (
   topic: string,
   difficulty: string,

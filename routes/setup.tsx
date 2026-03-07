@@ -2,7 +2,7 @@ import { createRoute, useNavigate } from '@tanstack/react-router';
 import { Route as rootRoute } from './__root';
 import QuizSetup from '../components/QuizSetup';
 import { useQuizStore } from '../store/quizStore';
-import { generateQuiz } from '../services/geminiService';
+import { generateQuiz } from '../services/apiService';
 import { Question, MarkingScheme } from '../types';
 
 export const setupRoute = createRoute({

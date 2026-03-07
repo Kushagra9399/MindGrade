@@ -34,7 +34,7 @@
 │   ├── setup.tsx
 │   └── status.tsx
 ├── services
-│   └── geminiService.ts
+│   └── apiService.ts
 ├── store
 │   └── quizStore.ts
 ├── structure.txt

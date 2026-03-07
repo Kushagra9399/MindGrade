@@ -4,7 +4,7 @@ import QuizCard from '../components/QuizCard';
 import QuestionNavigation from '../components/QuestionNavigation';
 import { useQuizStore } from '../store/quizStore';
 import { useEffect } from 'react';
-import { evaluateQuiz } from '../services/geminiService';
+import { evaluateQuiz } from '../services/apiService';
 
 export const quizRoute = createRoute({
   getParentRoute: () => rootRoute,
